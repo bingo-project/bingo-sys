@@ -6,48 +6,59 @@ import Icon from '@/components/Icon/Icon.vue';
 export const columns: BasicColumn[] = [
   {
     title: '菜单名称',
-    dataIndex: 'menuName',
+    dataIndex: 'meta',
     width: 200,
     align: 'left',
-  },
-  {
-    title: '图标',
-    dataIndex: 'icon',
-    width: 50,
     customRender: ({ record }) => {
-      return h(Icon, { icon: record.icon });
+      return record.meta.title;
     },
   },
   {
-    title: '权限标识',
-    dataIndex: 'permission',
-    width: 180,
+    title: '图标',
+    dataIndex: 'meta',
+    width: 50,
+    customRender: ({ record }) => {
+      return h(Icon, { icon: record.meta.icon });
+    },
+  },
+  {
+    title: '标识',
+    dataIndex: 'name',
+  },
+  {
+    title: '路径',
+    dataIndex: 'path',
   },
   {
     title: '组件',
     dataIndex: 'component',
   },
   {
+    title: '跳转',
+    dataIndex: 'redirect',
+  },
+  {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'sort',
     width: 50,
   },
   {
     title: '状态',
-    dataIndex: 'status',
+    dataIndex: 'meta',
     width: 80,
     customRender: ({ record }) => {
-      const status = record.status;
+      const status = record.meta.hideMenu;
       const enable = ~~status === 0;
       const color = enable ? 'green' : 'red';
-      const text = enable ? '启用' : '停用';
+      const text = enable ? '显示' : '隐藏';
       return h(Tag, { color: color }, () => text);
     },
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'createdAt',
     width: 180,
+    format: 'date|YYYY-MM-DD HH:mm:ss',
   },
 ];
 
@@ -57,19 +68,19 @@ const isButton = (type: string) => type === '2';
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'menuName',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'status',
+    field: 'hidden',
     label: '状态',
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '显示', value: '0' },
+        { label: '隐藏', value: '1' },
       ],
     },
     colProps: { span: 8 },

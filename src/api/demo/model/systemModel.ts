@@ -1,4 +1,5 @@
 import { BasicPageParams, BasicFetchResult } from '@/api/model/baseModel';
+import { RouteMeta } from 'vue-router';
 
 export type AccountParams = BasicPageParams & {
   account?: string;
@@ -44,12 +45,15 @@ export interface DeptListItem {
 
 export interface MenuListItem {
   id: string;
-  orderNo: string;
-  createTime: string;
-  status: number;
-  icon: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  path: string;
+  sort: string;
   component: string;
-  permission: string;
+  meta: RouteMeta;
+  redirect: string;
+  children?: MenuListItem[];
 }
 
 export interface RoleListItem {
