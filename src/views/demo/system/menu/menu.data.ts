@@ -62,7 +62,7 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-const isDir = (type: string) => type === '0';
+// const isDir = (type: string) => type === '0';
 const isMenu = (type: string) => type === '1';
 const isButton = (type: string) => type === '2';
 
@@ -103,19 +103,19 @@ export const formSchema: FormSchema[] = [
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'menuName',
+    field: 'meta.title',
     label: '菜单名称',
     component: 'Input',
     required: true,
   },
 
   {
-    field: 'parentMenu',
+    field: 'parentID',
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {
       fieldNames: {
-        label: 'menuName',
+        label: 'title',
         key: 'id',
         value: 'id',
       },
@@ -124,21 +124,21 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'orderNo',
+    field: 'sort',
     label: '排序',
     component: 'InputNumber',
     required: true,
   },
   {
-    field: 'icon',
+    field: 'meta.icon',
     label: '图标',
     component: 'IconPicker',
-    required: true,
+    required: false,
     ifShow: ({ values }) => !isButton(values.type),
   },
 
   {
-    field: 'routePath',
+    field: 'path',
     label: '路由地址',
     component: 'Input',
     required: true,
@@ -149,24 +149,6 @@ export const formSchema: FormSchema[] = [
     label: '组件路径',
     component: 'Input',
     ifShow: ({ values }) => isMenu(values.type),
-  },
-  {
-    field: 'permission',
-    label: '权限标识',
-    component: 'Input',
-    ifShow: ({ values }) => !isDir(values.type),
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '禁用', value: '1' },
-      ],
-    },
   },
   {
     field: 'isExt',
@@ -181,7 +163,6 @@ export const formSchema: FormSchema[] = [
     },
     ifShow: ({ values }) => !isButton(values.type),
   },
-
   {
     field: 'keepalive',
     label: '是否缓存',
@@ -197,14 +178,14 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'show',
+    field: 'hidden',
     label: '是否显示',
     component: 'RadioButtonGroup',
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '是', value: '0' },
-        { label: '否', value: '1' },
+        { label: '否', value: '0' },
+        { label: '是', value: '1' },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),

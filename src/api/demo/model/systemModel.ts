@@ -44,15 +44,17 @@ export interface DeptListItem {
 }
 
 export interface MenuListItem {
-  id: string;
+  id: number;
   createdAt: Date;
   updatedAt: Date;
   name: string;
   path: string;
   sort: string;
-  component: string;
   meta: RouteMeta;
+  title?: string;
+  component: string;
   redirect: string;
+  parentID: number;
   children?: MenuListItem[];
 }
 

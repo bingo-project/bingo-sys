@@ -42,11 +42,24 @@
       });
     }
     const treeData = await getMenuList();
+
+    // update treeData
+    updateTreeTitle(treeData);
+
     updateSchema({
-      field: 'parentMenu',
+      field: 'parentID',
       componentProps: { treeData },
     });
   });
+
+  async function updateTreeTitle(treeData) {
+    treeData.forEach((element) => {
+      element.title = element.meta.title;
+      if (element.children) {
+        updateTreeTitle(element.children);
+      }
+    });
+  }
 
   const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'));
 
