@@ -43,7 +43,7 @@ export const columns: BasicColumn[] = [
     width: 50,
   },
   {
-    title: '状态',
+    title: '是否隐藏',
     dataIndex: 'meta',
     width: 80,
     customRender: ({ record }) => {
@@ -75,7 +75,7 @@ export const searchFormSchema: FormSchema[] = [
   },
   {
     field: 'hidden',
-    label: '状态',
+    label: '是否隐藏',
     component: 'Select',
     componentProps: {
       options: [
@@ -92,7 +92,7 @@ export const formSchema: FormSchema[] = [
     field: 'type',
     label: '菜单类型',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: '1',
     componentProps: {
       options: [
         { label: '目录', value: '0' },
@@ -108,7 +108,12 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     required: true,
   },
-
+  {
+    field: 'name',
+    label: '标识',
+    component: 'Input',
+    required: true,
+  },
   {
     field: 'parentID',
     label: '上级菜单',
@@ -136,7 +141,6 @@ export const formSchema: FormSchema[] = [
     required: false,
     ifShow: ({ values }) => !isButton(values.type),
   },
-
   {
     field: 'path',
     label: '路由地址',
@@ -148,21 +152,29 @@ export const formSchema: FormSchema[] = [
     field: 'component',
     label: '组件路径',
     component: 'Input',
+    required: true,
     ifShow: ({ values }) => isMenu(values.type),
   },
   {
-    field: 'isExt',
-    label: '是否外链',
-    component: 'RadioButtonGroup',
-    defaultValue: '0',
-    componentProps: {
-      options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
-      ],
-    },
+    field: 'redirect',
+    label: '跳转地址',
+    component: 'Input',
+    required: false,
     ifShow: ({ values }) => !isButton(values.type),
   },
+  // {
+  //   field: 'isExt',
+  //   label: '是否外链',
+  //   component: 'RadioButtonGroup',
+  //   defaultValue: '0',
+  //   componentProps: {
+  //     options: [
+  //       { label: '否', value: '0' },
+  //       { label: '是', value: '1' },
+  //     ],
+  //   },
+  //   ifShow: ({ values }) => !isButton(values.type),
+  // },
   {
     field: 'keepalive',
     label: '是否缓存',
@@ -176,16 +188,14 @@ export const formSchema: FormSchema[] = [
     },
     ifShow: ({ values }) => isMenu(values.type),
   },
-
   {
-    field: 'hidden',
-    label: '是否显示',
+    field: 'meta.hideMenu',
+    label: '是否隐藏',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
     componentProps: {
       options: [
-        { label: '否', value: '0' },
-        { label: '是', value: '1' },
+        { label: '否', value: false },
+        { label: '是', value: true },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),

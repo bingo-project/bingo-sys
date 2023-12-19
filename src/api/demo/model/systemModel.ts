@@ -58,6 +58,18 @@ export interface MenuListItem {
   children?: MenuListItem[];
 }
 
+export interface CreateMenuRequest {
+  name: string;
+  path: string;
+  sort: number;
+  component: string;
+  redirect: string;
+  parentID: number;
+  title: string;
+  hidden: string;
+  icon: string;
+}
+
 export interface RoleListItem {
   id: string;
   roleName: string;

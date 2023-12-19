@@ -16,12 +16,14 @@
   import { formSchema } from './menu.data';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
 
-  import { getMenuList } from '@/api/demo/system';
+  import { createMenu, getMenuList, updateMenu } from '@/api/demo/system';
+  import { CreateMenuRequest } from '@/api/demo/model/systemModel';
 
   defineOptions({ name: 'MenuDrawer' });
 
   const emit = defineEmits(['success', 'register']);
 
+  let id = ref(0);
   const isUpdate = ref(true);
 
   const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
@@ -37,6 +39,7 @@
     isUpdate.value = !!data?.isUpdate;
 
     if (unref(isUpdate)) {
+      id.value = data.record.id;
       setFieldsValue({
         ...data.record,
       });
@@ -67,8 +70,35 @@
     try {
       const values = await validate();
       setDrawerProps({ confirmLoading: true });
-      // TODO custom api
-      console.log(values);
+
+      // Create menu api
+      console.log('values', values);
+      let params: CreateMenuRequest = {
+        name: values.name,
+        path: values.path,
+        sort: Number(values.sort),
+        component: values.component,
+        redirect: values.redirect,
+        parentID: values.parentID,
+        title: values.meta.title,
+        icon: values.meta.icon,
+        hidden: values.meta.hideMenu ? '1' : '0',
+      };
+
+      // Update or Create menu
+      if (unref(isUpdate)) {
+        updateMenu(id.value, params).catch(() => {
+          createMessage.error('更新失败');
+        });
+      } else {
+        createMenu(params).catch(() => {
+          createMessage.error('创建失败');
+        });
+      }
+
+      // Reload menu list
+      await getMenuList();
+
       closeDrawer();
       emit('success');
     } finally {
