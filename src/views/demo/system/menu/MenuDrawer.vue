@@ -72,7 +72,6 @@
       setDrawerProps({ confirmLoading: true });
 
       // Create menu api
-      console.log('values', values);
       let params: CreateMenuRequest = {
         name: values.name,
         path: values.path,

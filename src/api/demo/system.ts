@@ -39,6 +39,8 @@ export const createMenu = (params?: CreateMenuRequest) =>
 export const updateMenu = (id: number, params?: CreateMenuRequest) =>
   defHttp.put({ url: Api.CreateMenu + '/' + id, params: params });
 
+export const deleteMenu = (id: number) => defHttp.delete({ url: Api.CreateMenu + '/' + id });
+
 export const getRoleListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params });
 
