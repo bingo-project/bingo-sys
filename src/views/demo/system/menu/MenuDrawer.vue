@@ -86,17 +86,10 @@
 
       // Update or Create menu
       if (unref(isUpdate)) {
-        updateMenu(id.value, params).catch(() => {
-          createMessage.error('更新失败');
-        });
+        await updateMenu(id.value, params);
       } else {
-        createMenu(params).catch(() => {
-          createMessage.error('创建失败');
-        });
+        await createMenu(params);
       }
-
-      // Reload menu list
-      await getMenuList();
 
       closeDrawer();
       emit('success');

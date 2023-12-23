@@ -58,6 +58,7 @@ export const columns: BasicColumn[] = [
     title: '创建时间',
     dataIndex: 'createdAt',
     // width: 180,
+    format: 'date|YYYY-MM-DD HH:mm:ss',
   },
 ];
 
@@ -76,17 +77,26 @@ export const formSchema: FormSchema[] = [
     label: '角色名称',
     required: true,
     component: 'Input',
+    dynamicDisabled: ({ values }) => {
+      return !!values.name;
+    },
   },
   {
     field: 'description',
-    label: '角色值',
+    label: '角色描述',
     required: true,
     component: 'Input',
   },
   {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
-    component: 'ApiTree',
+    field: 'remark',
+    label: '备注',
+    required: false,
+    component: 'Input',
   },
+  // {
+  //   label: ' ',
+  //   field: 'menu',
+  //   slot: 'menu',
+  //   component: 'ApiTree',
+  // },
 ];

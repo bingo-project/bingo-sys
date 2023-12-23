@@ -77,6 +77,12 @@ export interface RoleListItem {
   description: string;
 }
 
+export interface CreateRoleRequest {
+  name: string;
+  description: string;
+  remark: string;
+}
+
 /**
  * @description: Request list return value
  */

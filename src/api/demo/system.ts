@@ -10,6 +10,7 @@ import {
   RolePageListGetResultModel,
   RoleListGetResultModel,
   CreateMenuRequest,
+  CreateRoleRequest,
 } from './model/systemModel';
 import { defHttp } from '@/utils/http/axios';
 
@@ -44,6 +45,12 @@ export const deleteMenu = (id: number) => defHttp.delete({ url: Api.CreateMenu +
 
 export const getRoleListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params });
+
+export const createRole = (params?: CreateRoleRequest) =>
+  defHttp.post({ url: Api.RolePageList, params: params });
+
+export const updateRole = (id: number, params?: CreateRoleRequest) =>
+  defHttp.put({ url: Api.RolePageList + '/' + id, params: params });
 
 export const deleteRole = (name: string) => defHttp.delete({ url: Api.RolePageList + '/' + name });
 
