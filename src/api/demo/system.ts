@@ -45,6 +45,8 @@ export const deleteMenu = (id: number) => defHttp.delete({ url: Api.CreateMenu +
 export const getRoleListByPage = (params?: RolePageParams) =>
   defHttp.get<RolePageListGetResultModel>({ url: Api.RolePageList, params });
 
+export const deleteRole = (name: string) => defHttp.delete({ url: Api.RolePageList + '/' + name });
+
 export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
 

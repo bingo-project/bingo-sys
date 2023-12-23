@@ -82,11 +82,7 @@
   }
 
   function handleDelete(record: Recordable) {
-    deleteMenu(record.id)
-      .then(() => handleSuccess())
-      .catch(() => {
-        createMessage.error('操作失败');
-      });
+    deleteMenu(record.id).then(() => handleSuccess());
   }
 
   function handleSuccess() {

@@ -31,7 +31,7 @@
 </template>
 <script lang="ts" setup>
   import { BasicTable, useTable, TableAction } from '@/components/Table';
-  import { getRoleListByPage } from '@/api/demo/system';
+  import { deleteRole, getRoleListByPage } from '@/api/demo/system';
 
   import { useDrawer } from '@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
@@ -77,7 +77,7 @@
   }
 
   function handleDelete(record: Recordable) {
-    console.log(record);
+    deleteRole(record.name).then(() => handleSuccess());
   }
 
   function handleSuccess() {
