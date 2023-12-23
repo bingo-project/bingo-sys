@@ -22,6 +22,7 @@ enum Api {
   CreateMenu = '/menus',
   RolePageList = '/system/getRoleListByPage',
   GetAllRoleList = '/system/getAllRoleList',
+  ChangePassword = '/auth/change-password',
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -52,3 +53,6 @@ export const setRoleStatus = (id: number, status: string) =>
 
 export const isAccountExist = (account: string) =>
   defHttp.post({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+
+export const changePassword = (passwordOld: string, passwordNew: string) =>
+  defHttp.put({ url: Api.ChangePassword, params: { passwordOld, passwordNew } });

@@ -14,6 +14,7 @@
   import { BasicForm, useForm } from '@/components/Form';
 
   import { formSchema } from './pwd.data';
+  import { changePassword } from '@/api/demo/system';
 
   defineOptions({ name: 'ChangePassword' });
 
@@ -30,8 +31,8 @@
       const values = await validate();
       const { passwordOld, passwordNew } = values;
 
-      // TODO custom api
-      console.log(passwordOld, passwordNew);
+      // custom api
+      changePassword(passwordOld, passwordNew);
       // const { router } = useRouter();
       // router.push(pageEnum.BASE_LOGIN);
     } catch (error) {
