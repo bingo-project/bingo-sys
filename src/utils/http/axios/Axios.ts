@@ -198,6 +198,19 @@ export class VAxios {
   }
 
   request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    // 成功提示消息
+    if (
+      config.method != 'GET' &&
+      config.method != 'OPTIONS' &&
+      options?.successMessageMode == undefined
+    ) {
+      if (options) {
+        options.successMessageMode = 'message';
+      } else {
+        options = { successMessageMode: 'message' };
+      }
+    }
+
     let conf: CreateAxiosOptions = cloneDeep(config);
     // cancelToken 如果被深拷贝，会导致最外层无法使用cancel方法来取消请求
     if (config.cancelToken) {
