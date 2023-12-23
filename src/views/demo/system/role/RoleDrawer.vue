@@ -12,7 +12,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
-          :fieldNames="{ title: 'menuName', key: 'id' }"
+          :fieldNames="{ title: 'title', key: 'id' }"
           checkable
           toolbar
           title="菜单分配"
@@ -65,7 +65,6 @@
       setDrawerProps({ confirmLoading: true });
 
       // Update or Create menu
-      console.log(values);
       if (unref(isUpdate)) {
         await updateRole(values.name, values);
       } else {

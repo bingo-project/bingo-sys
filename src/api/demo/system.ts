@@ -1,3 +1,4 @@
+import { isNull } from 'xe-utils';
 import {
   AccountParams,
   DeptListItem,
@@ -13,6 +14,7 @@ import {
   CreateRoleRequest,
 } from './model/systemModel';
 import { defHttp } from '@/utils/http/axios';
+import { isEmpty, isUndefined } from 'lodash-es';
 
 enum Api {
   AccountList = '/system/getAccountList',
@@ -33,7 +35,22 @@ export const getDeptList = (params?: DeptListItem) =>
   defHttp.get<DeptListGetResultModel>({ url: Api.DeptList, params });
 
 export const getMenuList = (params?: MenuParams) =>
-  defHttp.get<MenuListGetResultModel>({ url: Api.MenuList, params });
+  defHttp.get<MenuListGetResultModel>({ url: Api.MenuList, params }).then((data) => {
+    if (!isNull(data) && !isUndefined(data) && !isEmpty(data)) {
+      updateTreeTitle(data);
+    }
+
+    return data;
+  });
+
+function updateTreeTitle(treeData) {
+  treeData.forEach((element) => {
+    element.title = element.meta.title;
+    if (element.children) {
+      updateTreeTitle(element.children);
+    }
+  });
+}
 
 export const createMenu = (params?: CreateMenuRequest) =>
   defHttp.post({ url: Api.CreateMenu, params: params });
