@@ -70,7 +70,7 @@ export const formSchema: FormSchema[] = [
     label: 'Method',
     required: true,
     component: 'Select',
-    defaultValue: '1',
+    defaultValue: '',
     componentProps: {
       options: [
         { label: 'GET', value: 'GET' },
