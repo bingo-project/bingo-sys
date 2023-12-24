@@ -39,7 +39,15 @@ export const searchFormSchema: FormSchema[] = [
   {
     field: 'method',
     label: 'Method',
-    component: 'Input',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: 'GET', value: 'GET' },
+        { label: 'POST', value: 'POST' },
+        { label: 'PUT', value: 'PUT' },
+        { label: 'DELETE', value: 'DELETE' },
+      ],
+    },
     colProps: { span: 8 },
   },
   {
@@ -61,7 +69,16 @@ export const formSchema: FormSchema[] = [
     field: 'method',
     label: 'Method',
     required: true,
-    component: 'Input',
+    component: 'Select',
+    defaultValue: '1',
+    componentProps: {
+      options: [
+        { label: 'GET', value: 'GET' },
+        { label: 'POST', value: 'POST' },
+        { label: 'PUT', value: 'PUT' },
+        { label: 'DELETE', value: 'DELETE' },
+      ],
+    },
   },
   {
     field: 'path',
