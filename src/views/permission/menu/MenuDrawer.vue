@@ -4,71 +4,69 @@
     @register="registerDrawer"
     showFooter
     :title="getTitle"
-    width="500px"
+    width="50%"
     @ok="handleSubmit"
   >
-    <BasicForm @register="registerForm">
-      <template #menu="{ model, field }">
-        <BasicTree
-          v-model:value="model[field]"
-          :treeData="treeData"
-          :fieldNames="{ title: 'title', key: 'id' }"
-          checkable
-          toolbar
-          title="菜单分配"
-        />
-      </template>
-    </BasicForm>
+    <BasicForm @register="registerForm" />
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue';
   import { BasicForm, useForm } from '@/components/Form';
-  import { formSchema } from './role.data';
+  import { formSchema } from './menu.data';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
-  import { BasicTree, TreeItem } from '@/components/Tree';
 
-  import { createRole, getMenuList, updateRole } from '@/api/demo/system';
+  import { createMenu, menuList, updateMenu } from '@/api/permission/menu';
+
+  defineOptions({ name: 'MenuDrawer' });
 
   const emit = defineEmits(['success', 'register']);
-  const isUpdate = ref(true);
-  const treeData = ref<TreeItem[]>([]);
 
-  const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
-    labelWidth: 90,
-    baseColProps: { span: 24 },
+  let id = ref(0);
+  const isUpdate = ref(true);
+
+  const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
+    labelWidth: 100,
     schemas: formSchema,
     showActionButtonGroup: false,
+    baseColProps: { lg: 12, md: 24 },
   });
 
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     resetFields();
     setDrawerProps({ confirmLoading: false });
-    // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
-    if (unref(treeData).length === 0) {
-      treeData.value = (await getMenuList()) as any as TreeItem[];
-    }
     isUpdate.value = !!data?.isUpdate;
 
     if (unref(isUpdate)) {
+      id.value = data.record.id;
       setFieldsValue({
         ...data.record,
       });
     }
+    const treeData = await menuList();
+
+    updateSchema({
+      field: 'parentID',
+      componentProps: { treeData },
+    });
   });
 
-  const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
+  const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'));
 
   async function handleSubmit() {
     try {
       const values = await validate();
       setDrawerProps({ confirmLoading: true });
 
+      // Create menu api
+      values.sort = Number(values.sort);
+      values.hidden = !!values.hidden;
+
       // Update or Create menu
       if (unref(isUpdate)) {
-        await updateRole(values.name, values);
+        await updateMenu(id.value, values);
       } else {
-        await createRole(values);
+        await createMenu(values);
       }
 
       closeDrawer();

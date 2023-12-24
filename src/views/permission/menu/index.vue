@@ -33,7 +33,7 @@
   import { nextTick } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '@/components/Table';
-  import { deleteMenu, getMenuList } from '@/api/demo/system';
+  import { deleteMenu, menuList } from '@/api/permission/menu';
 
   import { useDrawer } from '@/components/Drawer';
   import MenuDrawer from './MenuDrawer.vue';
@@ -45,7 +45,7 @@
   const [registerDrawer, { openDrawer }] = useDrawer();
   const [registerTable, { reload, expandAll }] = useTable({
     title: '菜单列表',
-    api: getMenuList,
+    api: menuList,
     columns,
     formConfig: {
       labelWidth: 120,
