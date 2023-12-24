@@ -9,6 +9,7 @@ enum Api {
   GetUserInfo = '/auth/user-info',
   GetPermCode = '/roles/:role/menus',
   TestRetry = '/testRetry',
+  ChangePassword = '/auth/change-password',
 }
 
 /**
@@ -53,3 +54,6 @@ export function testRetry() {
     },
   );
 }
+
+export const changePassword = (passwordOld: string, passwordNew: string) =>
+  defHttp.put({ url: Api.ChangePassword, params: { passwordOld, passwordNew } });

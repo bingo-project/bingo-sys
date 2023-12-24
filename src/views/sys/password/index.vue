@@ -14,7 +14,7 @@
   import { BasicForm, useForm } from '@/components/Form';
 
   import { formSchema } from './pwd.data';
-  import { changePassword } from '@/api/demo/system';
+  import { changePassword } from '@/api/sys/user';
 
   defineOptions({ name: 'ChangePassword' });
 

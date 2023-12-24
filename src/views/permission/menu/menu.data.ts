@@ -106,10 +106,31 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
+    field: 'icon',
+    label: '图标',
+    component: 'IconPicker',
+    required: false,
+    ifShow: ({ values }) => !isButton(values.type),
+  },
+  {
     field: 'name',
     label: '标识',
     component: 'Input',
     required: true,
+  },
+  {
+    field: 'path',
+    label: '路径',
+    component: 'Input',
+    required: true,
+    ifShow: ({ values }) => !isButton(values.type),
+  },
+  {
+    field: 'component',
+    label: '组件',
+    component: 'Input',
+    required: true,
+    ifShow: ({ values }) => isMenu(values.type),
   },
   {
     field: 'parentID',
@@ -124,40 +145,18 @@ export const formSchema: FormSchema[] = [
       getPopupContainer: () => document.body,
     },
   },
-
-  {
-    field: 'sort',
-    label: '排序',
-    component: 'InputNumber',
-    required: true,
-  },
-  {
-    field: 'icon',
-    label: '图标',
-    component: 'IconPicker',
-    required: false,
-    ifShow: ({ values }) => !isButton(values.type),
-  },
-  {
-    field: 'path',
-    label: '路由地址',
-    component: 'Input',
-    required: true,
-    ifShow: ({ values }) => !isButton(values.type),
-  },
-  {
-    field: 'component',
-    label: '组件路径',
-    component: 'Input',
-    required: true,
-    ifShow: ({ values }) => isMenu(values.type),
-  },
   {
     field: 'redirect',
     label: '跳转地址',
     component: 'Input',
     required: false,
     ifShow: ({ values }) => !isButton(values.type),
+  },
+  {
+    field: 'sort',
+    label: '排序',
+    component: 'InputNumber',
+    required: true,
   },
   // {
   //   field: 'isExt',
