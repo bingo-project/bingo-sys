@@ -1,25 +1,21 @@
 import { BasicColumn, FormSchema } from '@/components/Table';
 import { h } from 'vue';
 import { Tag } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
 
 export const columns: BasicColumn[] = [
   {
     title: '菜单名称',
-    dataIndex: 'meta',
+    dataIndex: 'title',
     width: 200,
     align: 'left',
-    customRender: ({ record }) => {
-      return record.meta.title;
-    },
+    // customRender: ({ record }) => {
+    //   return record.meta.title;
+    // },
   },
   {
     title: '图标',
     dataIndex: 'meta',
     width: 50,
-    customRender: ({ record }) => {
-      return h(Icon, { icon: record.meta.icon });
-    },
   },
   {
     title: '标识',
@@ -44,10 +40,10 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '是否隐藏',
-    dataIndex: 'meta',
+    dataIndex: 'hidden',
     width: 80,
     customRender: ({ record }) => {
-      const status = record.meta.hideMenu;
+      const status = record.hidden;
       const enable = ~~status === 0;
       const color = enable ? 'green' : 'red';
       const text = enable ? '显示' : '隐藏';
@@ -103,7 +99,7 @@ export const formSchema: FormSchema[] = [
     colProps: { lg: 24, md: 24 },
   },
   {
-    field: 'meta.title',
+    field: 'title',
     label: '菜单名称',
     component: 'Input',
     required: true,
@@ -135,7 +131,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'meta.icon',
+    field: 'icon',
     label: '图标',
     component: 'IconPicker',
     required: false,
@@ -189,7 +185,7 @@ export const formSchema: FormSchema[] = [
     ifShow: ({ values }) => isMenu(values.type),
   },
   {
-    field: 'meta.hideMenu',
+    field: 'hidden',
     label: '是否隐藏',
     component: 'RadioButtonGroup',
     componentProps: {

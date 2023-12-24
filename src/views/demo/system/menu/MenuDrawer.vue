@@ -17,7 +17,6 @@
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
 
   import { createMenu, getMenuList, updateMenu } from '@/api/demo/system';
-  import { CreateMenuRequest } from '@/api/demo/model/systemModel';
 
   defineOptions({ name: 'MenuDrawer' });
 
@@ -60,23 +59,14 @@
       setDrawerProps({ confirmLoading: true });
 
       // Create menu api
-      let params: CreateMenuRequest = {
-        name: values.name,
-        path: values.path,
-        sort: Number(values.sort),
-        component: values.component,
-        redirect: values.redirect,
-        parentID: values.parentID,
-        title: values.meta.title,
-        icon: values.meta.icon,
-        hidden: values.meta.hideMenu ? '1' : '0',
-      };
+      values.sort = Number(values.sort);
+      values.hidden = !!values.hidden;
 
       // Update or Create menu
       if (unref(isUpdate)) {
-        await updateMenu(id.value, params);
+        await updateMenu(id.value, values);
       } else {
-        await createMenu(params);
+        await createMenu(values);
       }
 
       closeDrawer();

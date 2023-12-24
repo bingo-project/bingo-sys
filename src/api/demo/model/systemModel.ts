@@ -1,5 +1,4 @@
 import { BasicPageParams, BasicFetchResult } from '@/api/model/baseModel';
-import { RouteMeta } from 'vue-router';
 
 export type AccountParams = BasicPageParams & {
   account?: string;
@@ -19,8 +18,8 @@ export type DeptParams = {
 };
 
 export type MenuParams = {
-  menuName?: string;
-  status?: string;
+  name?: string;
+  // status?: string;
 };
 
 export interface AccountListItem {
@@ -49,7 +48,6 @@ export interface MenuListItem {
   name: string;
   path: string;
   sort: string;
-  meta: RouteMeta;
   title?: string;
   component: string;
   redirect: string;
