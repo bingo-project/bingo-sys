@@ -53,7 +53,7 @@
 
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);
-  const isPermission = ref(false);
+  const isPermission = ref(0);
   const treeDataMenu = ref<TreeItem[]>([]);
   const treeDataApi = ref<TreeItem[]>([]);
   const apiIDs = ref<number[]>([]);
@@ -85,7 +85,7 @@
       });
     }
     isUpdate.value = !!data?.isUpdate;
-    isPermission.value = !!data?.isPermission;
+    isPermission.value = data?.isPermission;
 
     // Get permission
     await getPermissions(data.record);
@@ -99,7 +99,7 @@
   });
 
   const getTitle = computed(() =>
-    unref(isPermission) ? '设置权限' : !unref(isUpdate) ? '新增角色' : '编辑角色',
+    unref(isPermission) == 1 ? '设置权限' : !unref(isUpdate) ? '新增角色' : '编辑角色',
   );
 
   // Get permissions
@@ -118,7 +118,7 @@
       setDrawerProps({ confirmLoading: true });
 
       // Set permission
-      if (unref(isPermission)) {
+      if (unref(isPermission) == 1) {
         // Set menu
         await setPermissionMenu(values.name, { menuIDs: values.menuIDs });
 

@@ -73,7 +73,7 @@
   function handleCreate() {
     openDrawer(true, {
       isUpdate: false,
-      isPermission: false,
+      isPermission: 0,
     });
   }
 
@@ -82,7 +82,7 @@
     openDrawer(true, {
       record,
       isUpdate: true,
-      isPermission: false,
+      isPermission: 0,
     });
   }
 
@@ -98,7 +98,7 @@
     openDrawer(true, {
       record,
       isUpdate: true,
-      isPermission: true,
+      isPermission: 1,
     });
   }
 </script>
