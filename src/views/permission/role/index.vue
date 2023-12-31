@@ -9,6 +9,11 @@
           <TableAction
             :actions="[
               {
+                icon: 'ant-design:setting-outlined',
+                tooltip: '设置权限',
+                onClick: handleSetPermission.bind(null, record),
+              },
+              {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
                 onClick: handleEdit.bind(null, record),
@@ -68,13 +73,16 @@
   function handleCreate() {
     openDrawer(true, {
       isUpdate: false,
+      isPermission: false,
     });
   }
 
   function handleEdit(record: Recordable) {
+    console.log('handle permission');
     openDrawer(true, {
       record,
       isUpdate: true,
+      isPermission: false,
     });
   }
 
@@ -84,5 +92,13 @@
 
   function handleSuccess() {
     reload();
+  }
+
+  function handleSetPermission(record: Recordable) {
+    openDrawer(true, {
+      record,
+      isUpdate: true,
+      isPermission: true,
+    });
   }
 </script>

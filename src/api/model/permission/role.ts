@@ -20,6 +20,14 @@ export interface CreateRoleRequest {
   remark: string;
 }
 
+export interface SetPermissionMenuRequest {
+  menuIDs: number[];
+}
+
+export interface SetPermissionApiRequest {
+  apiIDs: number[];
+}
+
 /**
  * @description: Request list return value
  */

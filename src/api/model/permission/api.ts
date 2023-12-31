@@ -28,3 +28,5 @@ export interface CreateApiRequest {
  * @description: Request list return value
  */
 export type ApiListResult = BasicFetchResult<ApiListItem>;
+
+export type ApiAllResult = ApiListItem[];

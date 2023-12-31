@@ -1,4 +1,5 @@
 import { BasicColumn, FormSchema } from '@/components/Table';
+
 // import { h } from 'vue';
 // import { Switch } from 'ant-design-vue';
 // import { setRoleStatus } from '@/api/demo/system';
@@ -74,30 +75,53 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
+    field: 'isPermission',
+    label: '设置权限',
+    component: 'Input',
+    dynamicDisabled: true,
+    show: false,
+  },
+  {
+    field: 'id',
+    label: 'ID',
+    component: 'Input',
+    dynamicDisabled: true,
+    show: false,
+  },
+  {
     field: 'name',
     label: '角色名称',
     required: true,
     component: 'Input',
-    dynamicDisabled: ({ values }) => {
-      return !!values.name;
-    },
+    dynamicDisabled: ({ values }) => !!values.id,
+    ifShow: ({ values }) => !values.isPermission,
   },
   {
     field: 'description',
     label: '角色描述',
     required: true,
     component: 'Input',
+    ifShow: ({ values }) => !values.isPermission,
   },
   {
     field: 'remark',
     label: '备注',
     required: false,
     component: 'Input',
+    ifShow: ({ values }) => !values.isPermission,
   },
-  // {
-  //   label: ' ',
-  //   field: 'menu',
-  //   slot: 'menu',
-  //   component: 'ApiTree',
-  // },
+  {
+    label: ' ',
+    field: 'menuIDs',
+    slot: 'menu',
+    component: 'ApiTree',
+    ifShow: ({ values }) => !!values.isPermission,
+  },
+  {
+    label: ' ',
+    field: 'apiIDs',
+    slot: 'api',
+    component: 'ApiTree',
+    ifShow: ({ values }) => !!values.isPermission,
+  },
 ];
