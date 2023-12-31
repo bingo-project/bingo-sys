@@ -13,6 +13,7 @@
           v-model:value="model[field]"
           :treeData="treeDataMenu"
           :fieldNames="{ title: 'title', key: 'id' }"
+          :expandedKeys="menuIDs"
           checkable
           toolbar
           title="菜单分配"
@@ -23,6 +24,7 @@
           v-model:value="model[field]"
           :treeData="treeDataApi"
           :fieldNames="{ title: 'description', key: 'id' }"
+          :expandedKeys="apiIDs"
           checkable
           toolbar
           title="API 分配"
@@ -54,6 +56,8 @@
   const isPermission = ref(false);
   const treeDataMenu = ref<TreeItem[]>([]);
   const treeDataApi = ref<TreeItem[]>([]);
+  const apiIDs = ref<number[]>([]);
+  const menuIDs = ref<number[]>([]);
 
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 90,
@@ -68,9 +72,17 @@
     // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
     if (unref(treeDataMenu).length === 0) {
       treeDataMenu.value = (await menuList()) as any as TreeItem[];
+
+      treeDataMenu.value.forEach((element) => {
+        menuIDs.value.push(element.id);
+      });
     }
     if (unref(treeDataApi).length === 0) {
       treeDataApi.value = (await allApi()) as any as TreeItem[];
+
+      treeDataApi.value.forEach((element) => {
+        apiIDs.value.push(element.id);
+      });
     }
     isUpdate.value = !!data?.isUpdate;
     isPermission.value = !!data?.isPermission;
