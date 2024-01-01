@@ -1,5 +1,5 @@
 import { updateAdminStatus } from '@/api/admin/admin';
-import { getAllRoleList } from '@/api/demo/system';
+import { allRole } from '@/api/permission/role';
 import { BasicColumn, FormSchema } from '@/components/Table';
 // import { useMessage } from '@/hooks/web/useMessage';
 import { Switch } from 'ant-design-vue';
@@ -14,18 +14,18 @@ import { h } from 'vue';
  *  ...
  * }
  */
-export const deptMap = (() => {
-  const pDept = ['华东分部', '华南分部', '西北分部'];
-  const cDept = ['研发部', '市场部', '商务部', '财务部'];
+// export const deptMap = (() => {
+//   const pDept = ['华东分部', '华南分部', '西北分部'];
+//   const cDept = ['研发部', '市场部', '商务部', '财务部'];
 
-  return pDept.reduce((map, p, pIdx) => {
-    map[pIdx] = p;
+//   return pDept.reduce((map, p, pIdx) => {
+//     map[pIdx] = p;
 
-    cDept.forEach((c, cIndex) => (map[`${pIdx}-${cIndex}`] = `${p}-${c}`));
+//     cDept.forEach((c, cIndex) => (map[`${pIdx}-${cIndex}`] = `${p}-${c}`));
 
-    return map;
-  }, {});
-})();
+//     return map;
+//   }, {});
+// })();
 
 type CheckedType = boolean | string | number;
 export const columns: BasicColumn[] = [
@@ -150,7 +150,7 @@ export const accountFormSchema: FormSchema[] = [
     field: 'pwd',
     label: '密码',
     component: 'InputPassword',
-    required: true,
+    // required: true,
     ifShow: true,
   },
   {
@@ -158,9 +158,9 @@ export const accountFormSchema: FormSchema[] = [
     field: 'role',
     component: 'ApiSelect',
     componentProps: {
-      api: getAllRoleList,
-      labelField: 'roleName',
-      valueField: 'roleValue',
+      api: allRole,
+      labelField: 'description',
+      valueField: 'name',
     },
     required: true,
   },

@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, useForm } from '@/components/Form';
   import { accountFormSchema } from './admin.data';
-  import { getDeptList } from '@/api/demo/system';
+  // import { getDeptList } from '@/api/demo/system';
 
   defineOptions({ name: 'AccountModal' });
 
@@ -17,7 +17,7 @@
   const isUpdate = ref(true);
   const rowId = ref('');
 
-  const [registerForm, { setFieldsValue, updateSchema, resetFields, validate }] = useForm({
+  const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
     labelWidth: 100,
     baseColProps: { span: 24 },
     schemas: accountFormSchema,
@@ -39,17 +39,18 @@
       });
     }
 
-    const treeData = await getDeptList();
-    updateSchema([
-      {
-        field: 'pwd',
-        show: !unref(isUpdate),
-      },
-      {
-        field: 'dept',
-        componentProps: { treeData },
-      },
-    ]);
+    // 隐藏部门
+    // const treeData = await getDeptList();
+    // updateSchema([
+    //   {
+    //     field: 'pwd',
+    //     show: !unref(isUpdate),
+    //   },
+    //   {
+    //     field: 'dept',
+    //     componentProps: { treeData },
+    //   },
+    // ]);
   });
 
   const getTitle = computed(() => (!unref(isUpdate) ? '新增账号' : '编辑账号'));

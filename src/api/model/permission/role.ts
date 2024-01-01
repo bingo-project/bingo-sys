@@ -32,3 +32,4 @@ export interface SetPermissionApiRequest {
  * @description: Request list return value
  */
 export type RoleListResult = BasicFetchResult<RoleListItem>;
+export type AllRoleResult = RoleListItem[];

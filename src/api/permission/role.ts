@@ -1,5 +1,6 @@
 import { defHttp } from '@/utils/http/axios';
 import {
+  AllRoleResult,
   CreateRoleRequest,
   RoleListParams,
   RoleListResult,
@@ -9,13 +10,16 @@ import {
 
 enum Api {
   RoleList = '/roles',
-  RoleDetail = '/roles/{name}',
-  PermissionMenu = '/roles/{name}/menus',
-  PermissionApi = '/roles/{name}/apis',
+  RoleDetail = '/roles/:name',
+  RoleAll = '/roles/all',
+  PermissionMenu = '/roles/:name/menus',
+  PermissionApi = '/roles/:name/apis',
 }
 
 export const listRole = (params?: RoleListParams) =>
   defHttp.get<RoleListResult>({ url: Api.RoleList, params });
+
+export const allRole = () => defHttp.get<AllRoleResult>({ url: Api.RoleAll });
 
 export const createRole = (params?: CreateRoleRequest) =>
   defHttp.post({ url: Api.RoleList, params: params });
@@ -24,24 +28,24 @@ export const updateRole = (id: number, params?: CreateRoleRequest) =>
   defHttp.put({ url: Api.RoleList + '/' + id, params: params });
 
 export const deleteRole = (roleName: string) =>
-  defHttp.delete({ url: Api.RoleDetail.replace('{name}', roleName) });
+  defHttp.delete({ url: Api.RoleDetail.replace(':name', roleName) });
 
 export const getPermissionMenu = (roleName: string) =>
-  defHttp.get({ url: Api.PermissionMenu.replace('{name}', roleName) });
+  defHttp.get({ url: Api.PermissionMenu.replace(':name', roleName) });
 
 export const setPermissionMenu = (roleName: string, params?: SetPermissionMenuRequest) =>
   defHttp.put({
-    url: Api.PermissionMenu.replace('{name}', roleName),
+    url: Api.PermissionMenu.replace(':name', roleName),
     params: params,
   });
 
 export const getPermissionApi = (roleName: string) =>
-  defHttp.get({ url: Api.PermissionApi.replace('{name}', roleName) });
+  defHttp.get({ url: Api.PermissionApi.replace(':name', roleName) });
 
 export const setPermissionApi = (roleName: string, params?: SetPermissionApiRequest) =>
   defHttp.put(
     {
-      url: Api.PermissionApi.replace('{name}', roleName),
+      url: Api.PermissionApi.replace(':name', roleName),
       params: params,
     },
     { successMessageMode: 'none' },
