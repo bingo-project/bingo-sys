@@ -4,6 +4,7 @@ import { ApiAllResult, ApiListResult, ApiParams, CreateApiRequest } from '../mod
 enum Api {
   ApiList = '/apis',
   ApiAll = '/apis/all',
+  ApiTree = '/apis/tree',
 }
 
 export const listApi = (params?: ApiParams) =>
@@ -27,3 +28,29 @@ export const allApi = (params?: ApiParams) =>
 
     return data;
   });
+
+export const apiTree = (params?: ApiParams) =>
+  defHttp.get<ApiAllResult>({ url: Api.ApiTree, params }).then((data) => {
+    updateTreeTitleApi(data);
+
+    console.log('apiTree', data);
+
+    return data;
+  });
+
+function updateTreeTitleApi(treeData) {
+  treeData.forEach((element, index) => {
+    if (element.description == undefined) {
+      element.id = -index;
+      element.description = element.key;
+    }
+
+    if (element.description == '') {
+      element.description = element.method + ': ' + element.path;
+    }
+
+    if (element.children) {
+      updateTreeTitleApi(element.children);
+    }
+  });
+}

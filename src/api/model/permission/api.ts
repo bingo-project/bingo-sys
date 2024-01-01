@@ -15,6 +15,8 @@ export interface ApiListItem {
   path: string;
   group: string;
   description: string;
+
+  children?: ApiListItem[];
 }
 
 export interface CreateApiRequest {
