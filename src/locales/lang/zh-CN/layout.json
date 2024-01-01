@@ -15,7 +15,9 @@
     "lockScreenPassword": "锁屏密码",
     "lockScreen": "锁定屏幕",
     "lockScreenBtn": "锁定",
-    "home": "首页"
+    "home": "首页",
+    "roleCurrent": "当前角色",
+    "roleSwitch": "切换角色"
   },
   "multipleTab": {
     "reload": "重新加载",

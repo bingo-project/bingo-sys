@@ -15,7 +15,9 @@
     "lockScreenPassword": "Lock screen password",
     "lockScreen": "Lock screen",
     "lockScreenBtn": "Locking",
-    "home": "Home"
+    "home": "Home",
+    "roleCurrent": "Current Role",
+    "roleSwitch": "Switch Role"
   },
   "multipleTab": {
     "reload": "Refresh current",

@@ -18,6 +18,24 @@
           v-if="getShowDoc"
         />
         <Menu.Divider v-if="getShowDoc" />
+
+        <!-- 当前角色 -->
+        <MenuItem
+          key="role"
+          :text="t('layout.header.roleCurrent') + ': ' + getUserInfo?.roleName"
+          icon="ant-design:user-outlined"
+        />
+        <Menu.Divider v-if="getUserInfo?.roleName" />
+
+        <!-- 切换角色 -->
+        <MenuItem
+          @click="handleSwitchRole(role.name)"
+          :text="t('layout.header.roleSwitch') + ': ' + role.name"
+          icon="ant-design:user-switch-outlined"
+          v-for="role in getUserInfo?.roleMap"
+          :key="role.name"
+        />
+        <Menu.Divider v-if="getUserInfo?.roleMap.length > 0" />
         <MenuItem
           v-if="getShowApi"
           key="api"
@@ -55,8 +73,9 @@
   import { propTypes } from '@/utils/propTypes';
   import { openWindow } from '@/utils';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { switchRole } from '@/api/sys/user';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api' | 'switch-role';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));
@@ -74,8 +93,11 @@
   const userStore = useUserStore();
 
   const getUserInfo = computed(() => {
-    const { nickname: realName = '', avatar } = userStore.getUserInfo || {};
-    return { realName, avatar: avatar || headerImg };
+    const { nickname: realName = '', avatar, roleName, roles } = userStore.getUserInfo || {};
+
+    let roleMap = roles.filter((item) => item.name != roleName);
+
+    return { realName, avatar: avatar || headerImg, roleName, roleMap };
   });
 
   const [register, { openModal }] = useModal();
@@ -97,6 +119,12 @@
   // open doc
   function openDoc() {
     openWindow(DOC_URL);
+  }
+
+  async function handleSwitchRole(roleName: string) {
+    await switchRole(roleName);
+
+    location.reload();
   }
 
   function handleMenuClick(e: MenuInfo) {

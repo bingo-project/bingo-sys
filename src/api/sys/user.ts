@@ -10,6 +10,7 @@ enum Api {
   GetPermCode = '/roles/:role/menus',
   TestRetry = '/testRetry',
   ChangePassword = '/auth/change-password',
+  SwitchRole = '/auth/switch-role',
 }
 
 /**
@@ -57,3 +58,6 @@ export function testRetry() {
 
 export const changePassword = (passwordOld: string, passwordNew: string) =>
   defHttp.put({ url: Api.ChangePassword, params: { passwordOld, passwordNew } });
+
+export const switchRole = (roleName: string) =>
+  defHttp.put({ url: Api.SwitchRole, params: { roleName } });
