@@ -34,8 +34,8 @@ export function getUserInfo() {
   return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: 'none' });
 }
 
-export function getPermCode() {
-  return defHttp.get<string[]>({ url: Api.GetPermCode });
+export function getPermCode(roleName: string) {
+  return defHttp.get<string[]>({ url: Api.GetPermCode.replace(':role', roleName) });
 }
 
 export function doLogout() {

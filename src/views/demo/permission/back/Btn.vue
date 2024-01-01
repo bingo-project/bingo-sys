@@ -85,7 +85,7 @@
 
     // 重新获取用户信息和菜单
     userStore.getUserInfoAction();
-    permissionStore.changePermissionCode();
+    permissionStore.changePermissionCode(userStore.getUserInfo.roleName);
   }
 </script>
 <style lang="less" scoped>
