@@ -120,8 +120,9 @@
 
       // Set permission
       if (unref(isPermission) == 1) {
-        values.menuIDs = values.menuIDs.filter((item) => item > 0);
-        values.apiIDs = values.apiIDs.filter((item) => item > 0);
+        if (values.apiIDs?.length > 0) {
+          values.apiIDs = values.apiIDs.filter((item) => item > 0);
+        }
 
         // Set menu
         await setPermissionMenu(values.name, { menuIDs: values.menuIDs });
