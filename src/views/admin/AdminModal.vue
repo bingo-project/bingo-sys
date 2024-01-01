@@ -8,6 +8,8 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, useForm } from '@/components/Form';
   import { accountFormSchema } from './admin.data';
+  import { CreateAdminRequest } from '@/api/model/admin/admin';
+  import { createAdmin, updateAdmin } from '@/api/admin/admin';
   // import { getDeptList } from '@/api/demo/system';
 
   defineOptions({ name: 'AccountModal' });
@@ -33,7 +35,7 @@
     isUpdate.value = !!data?.isUpdate;
 
     if (unref(isUpdate)) {
-      rowId.value = data.record.id;
+      rowId.value = data.record.username;
       setFieldsValue({
         ...data.record,
       });
@@ -59,10 +61,29 @@
     try {
       const values = await validate();
       setModalProps({ confirmLoading: true });
-      // TODO custom api
-      console.log(values);
+
+      // Update or Create admin
+      let params: CreateAdminRequest = {
+        username: values.username,
+        nickname: values.nickname,
+        email: values.email,
+        phone: values.phone,
+        status: values.status,
+        roleNames: [values.roleName],
+      };
+
+      if (values.password) {
+        params.password = values.password;
+      }
+
+      if (unref(isUpdate)) {
+        await updateAdmin(rowId.value, params);
+      } else {
+        await createAdmin(params);
+      }
+
       closeModal();
-      emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
+      emit('success', { isUpdate: unref(isUpdate), values: { ...values, username: rowId.value } });
     } finally {
       setModalProps({ confirmLoading: false });
     }

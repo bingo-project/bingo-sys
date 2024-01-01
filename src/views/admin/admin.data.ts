@@ -147,7 +147,7 @@ export const accountFormSchema: FormSchema[] = [
     // ],
   },
   {
-    field: 'pwd',
+    field: 'password',
     label: '密码',
     component: 'InputPassword',
     // required: true,
@@ -155,14 +155,14 @@ export const accountFormSchema: FormSchema[] = [
   },
   {
     label: '角色',
-    field: 'role',
+    field: 'roleName',
     component: 'ApiSelect',
     componentProps: {
       api: allRole,
       labelField: 'description',
       valueField: 'name',
     },
-    required: true,
+    required: false,
   },
   // {
   //   field: 'dept',
@@ -189,7 +189,7 @@ export const accountFormSchema: FormSchema[] = [
     label: '邮箱',
     field: 'email',
     component: 'Input',
-    required: true,
+    required: false,
   },
 
   {

@@ -11,6 +11,16 @@ export type ListAdminParams = BasicPageParams & {
   [key: string]: any;
 };
 
+export interface CreateAdminRequest {
+  username: string;
+  nickname: string;
+  email: string;
+  phone: string;
+  status: number;
+  password?: string;
+  roleNames?: string[];
+}
+
 /**
  * @description: Request list return value
  */

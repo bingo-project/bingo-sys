@@ -61,7 +61,7 @@
   const [registerTable, { reload, updateTableDataRecord }] = useTable({
     title: '账号列表',
     api: listAdmin,
-    rowKey: 'id',
+    rowKey: 'username',
     columns,
     formConfig: {
       labelWidth: 120,
@@ -105,7 +105,8 @@
     if (isUpdate) {
       // 演示不刷新表格直接更新内部数据。
       // 注意：updateTableDataRecord要求表格的rowKey属性为string并且存在于每一行的record的keys中
-      const result = updateTableDataRecord(values.id, values);
+      console.log(values);
+      const result = updateTableDataRecord(values.username, values);
       console.log(result);
     } else {
       reload();
