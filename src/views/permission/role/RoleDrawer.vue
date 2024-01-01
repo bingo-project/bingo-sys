@@ -50,6 +50,7 @@
   } from '@/api/permission/role';
   import { menuList } from '@/api/permission/menu';
   import { apiTree } from '@/api/permission/api';
+  import { CreateRoleRequest } from '@/api/model/permission/role';
 
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);
@@ -129,10 +130,15 @@
         await setPermissionApi(values.name, { apiIDs: values.apiIDs });
       } else {
         // Update or Create Role
+        let params: CreateRoleRequest = {
+          name: values.name,
+          description: values.description,
+          remark: values.remark,
+        };
         if (unref(isUpdate)) {
-          await updateRole(values.name, values);
+          await updateRole(values.name, params);
         } else {
-          await createRole(values);
+          await createRole(params);
         }
       }
 

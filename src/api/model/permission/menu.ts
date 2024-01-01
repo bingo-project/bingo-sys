@@ -27,7 +27,7 @@ export interface CreateMenuRequest {
   redirect: string;
   parentID: number;
   title: string;
-  hidden: string;
+  hidden: boolean;
   icon: string;
 }
 
