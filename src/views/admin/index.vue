@@ -43,7 +43,7 @@
   import { reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '@/components/Table';
-  import { listAdmin } from '@/api/admin/admin';
+  import { deleteAdmin, listAdmin } from '@/api/admin/admin';
   import { PageWrapper } from '@/components/Page';
   // import DeptTree from './DeptTree.vue';
 
@@ -98,7 +98,7 @@
   }
 
   function handleDelete(record: Recordable) {
-    console.log(record);
+    deleteAdmin(record.username).then(() => handleSuccess({ isUpdate: false, values: null }));
   }
 
   function handleSuccess({ isUpdate, values }) {

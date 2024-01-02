@@ -18,3 +18,6 @@ export const updateAdmin = (username: string, params: CreateAdminRequest) =>
 
 export const updateAdminStatus = (username: string, status: number) =>
   defHttp.put({ url: Api.AdminDetail.replace(':name', username), params: { status } });
+
+export const deleteAdmin = (username: string) =>
+  defHttp.delete({ url: Api.AdminDetail.replace(':name', username) });
