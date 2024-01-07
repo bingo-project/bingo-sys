@@ -52,6 +52,7 @@
     formConfig: {
       labelWidth: 120,
       schemas: searchFormSchema,
+      autoSubmitOnEnter: true,
     },
     isTreeTable: false,
     pagination: false,

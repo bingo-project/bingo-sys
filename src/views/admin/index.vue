@@ -11,11 +11,11 @@
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
-              {
-                icon: 'clarity:info-standard-line',
-                tooltip: '查看用户详情',
-                onClick: handleView.bind(null, record),
-              },
+              // {
+              //   icon: 'clarity:info-standard-line',
+              //   tooltip: '查看用户详情',
+              //   onClick: handleView.bind(null, record),
+              // },
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑用户资料',
@@ -57,11 +57,11 @@
   import AdminModal from './AdminModal.vue';
 
   import { columns, searchFormSchema } from './admin.data';
-  import { useGo } from '@/hooks/web/usePage';
+  // import { useGo } from '@/hooks/web/usePage';
 
   defineOptions({ name: 'AdminManagement' });
 
-  const go = useGo();
+  // const go = useGo();
   const [registerModal, { openModal }] = useModal();
   const searchInfo = reactive<Recordable>({});
   const [registerTable, { reload }] = useTable({
@@ -127,7 +127,7 @@
   //   reload();
   // }
 
-  function handleView(record: Recordable) {
-    go('/system/account_detail/' + record.id);
-  }
+  // function handleView(record: Recordable) {
+  //   go('/system/account_detail/' + record.id);
+  // }
 </script>

@@ -55,6 +55,7 @@
     formConfig: {
       labelWidth: 120,
       schemas: searchFormSchema,
+      autoSubmitOnEnter: true,
     },
     pagination: true,
     useSearchForm: true,
