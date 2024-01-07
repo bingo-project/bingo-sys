@@ -31,6 +31,8 @@
     schemas: formSchema,
     showActionButtonGroup: false,
     baseColProps: { lg: 12, md: 24 },
+    autoSubmitOnEnter: true,
+    submitFunc: handleSubmit,
   });
 
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {

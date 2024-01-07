@@ -27,6 +27,8 @@
     actionColOptions: {
       span: 23,
     },
+    autoSubmitOnEnter: true,
+    submitFunc: handleSubmit,
   });
 
   const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {

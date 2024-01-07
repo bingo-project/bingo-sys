@@ -7,18 +7,7 @@
     width="500px"
     @ok="handleSubmit"
   >
-    <BasicForm @register="registerForm">
-      <template #menu="{ model, field }">
-        <BasicTree
-          v-model:value="model[field]"
-          :treeData="treeData"
-          :fieldNames="{ title: 'title', key: 'id' }"
-          checkable
-          toolbar
-          title="菜单分配"
-        />
-      </template>
-    </BasicForm>
+    <BasicForm @register="registerForm" />
   </BasicDrawer>
 </template>
 <script lang="ts" setup>
@@ -26,9 +15,9 @@
   import { BasicForm, useForm } from '@/components/Form';
   import { formSchema } from './api.data';
   import { BasicDrawer, useDrawerInner } from '@/components/Drawer';
-  import { BasicTree } from '@/components/Tree';
 
   import { createApi, updateApi } from '@/api/permission/api';
+  import { CreateApiRequest } from '@/api/model/permission/api';
 
   const emit = defineEmits(['success', 'register']);
   const isUpdate = ref(true);
@@ -39,6 +28,8 @@
     baseColProps: { span: 24 },
     schemas: formSchema,
     showActionButtonGroup: false,
+    autoSubmitOnEnter: true,
+    submitFunc: handleSubmit,
   });
 
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
@@ -62,10 +53,16 @@
       setDrawerProps({ confirmLoading: true });
 
       // Update or Create menu
+      let params: CreateApiRequest = {
+        method: values.method,
+        path: values.path,
+        group: values.group,
+        description: values.description,
+      };
       if (unref(isUpdate)) {
-        await updateApi(id.value, values);
+        await updateApi(id.value, params);
       } else {
-        await createApi(values);
+        await createApi(params);
       }
 
       closeDrawer();
