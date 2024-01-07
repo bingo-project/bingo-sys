@@ -35,12 +35,18 @@
           />
         </template>
       </template>
+      <template #roles="{ record }">
+        <Tag v-for="(item, index) in record.roles" :key="index">
+          {{ item.description }}
+        </Tag>
+      </template>
     </BasicTable>
     <AdminModal @register="registerModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
   import { reactive } from 'vue';
+  import { Tag } from 'ant-design-vue';
 
   import { BasicTable, useTable, TableAction } from '@/components/Table';
   import { deleteAdmin, listAdmin } from '@/api/admin/admin';

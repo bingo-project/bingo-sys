@@ -53,6 +53,7 @@ export const columns: BasicColumn[] = [
     title: '角色',
     dataIndex: 'roleNames',
     width: 120,
+    slots: { customRender: 'roles' },
   },
   {
     title: '状态',
