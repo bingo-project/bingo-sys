@@ -69,7 +69,7 @@
         email: values.email,
         phone: values.phone,
         status: values.status,
-        roleNames: [values.roleName],
+        roleNames: values.roleNames,
       };
 
       if (values.password) {

@@ -51,7 +51,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '角色',
-    dataIndex: 'roleName',
+    dataIndex: 'roleNames',
     width: 120,
   },
   {
@@ -69,7 +69,7 @@ export const columns: BasicColumn[] = [
         loading: record.pendingStatus,
         onChange(checked: CheckedType) {
           record.pendingStatus = true;
-          const newStatus = checked ? 1 : 0;
+          const newStatus = checked ? 1 : 2;
           // const { createMessage } = useMessage();
           updateAdminStatus(record.username, newStatus)
             .then(() => {
@@ -113,8 +113,32 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
+    field: 'status',
+    label: '状态',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: '正常', value: 1 },
+        { label: '冻结', value: 2 },
+      ],
+    },
+    colProps: { span: 8 },
+  },
+  {
     field: 'nickname',
     label: '昵称',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'email',
+    label: '邮箱',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'phone',
+    label: '手机',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -155,12 +179,13 @@ export const accountFormSchema: FormSchema[] = [
   },
   {
     label: '角色',
-    field: 'roleName',
+    field: 'roleNames',
     component: 'ApiSelect',
     componentProps: {
       api: allRole,
       labelField: 'description',
       valueField: 'name',
+      mode: 'multiple',
     },
     required: false,
   },
@@ -205,8 +230,8 @@ export const accountFormSchema: FormSchema[] = [
     component: 'RadioButtonGroup',
     componentProps: {
       options: [
-        { label: '冻结', value: 0 },
         { label: '正常', value: 1 },
+        { label: '冻结', value: 2 },
       ],
     },
   },

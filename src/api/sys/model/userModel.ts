@@ -44,4 +44,6 @@ export interface GetUserInfoModel {
   role: RoleInfo;
   // 可切换角色
   roles: RoleInfo[];
+  // 可切换角色名称集合
+  roleNames: string[];
 }

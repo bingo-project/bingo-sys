@@ -1,14 +1,20 @@
-import { AccountParams } from '../demo/model/systemModel';
 import { defHttp } from '@/utils/http/axios';
-import { CreateAdminRequest, ListAdminResult } from '../model/admin/admin';
+import { CreateAdminRequest, ListAdminParams, ListAdminResult } from '../model/admin/admin';
 
 enum Api {
   AdminList = '/admins',
   AdminDetail = '/admins/:name',
 }
 
-export const listAdmin = (params: AccountParams) =>
-  defHttp.get<ListAdminResult>({ url: Api.AdminList, params });
+export const listAdmin = (params: ListAdminParams) =>
+  defHttp.get<ListAdminResult>({ url: Api.AdminList, params }).then((data) => {
+    data.data.forEach((element) => {
+      element.roleNames = [];
+      element.roleNames = element.roles?.map((item) => item.name);
+    });
+
+    return data;
+  });
 
 export const createAdmin = (params: CreateAdminRequest) =>
   defHttp.post({ url: Api.AdminList, params });
